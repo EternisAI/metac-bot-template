@@ -1,6 +1,6 @@
-# eternalforecaster
+# eternalforecaster-bot
 
-MVP for [Fall 2026 FutureEval](https://www.metaculus.com/tournament/fall-futureeval-2026/), based on the official Metaculus template (upstream commit `6dab04c`). The requested Metaculus username is `eternalforecaster`; account creation and availability are not yet verified.
+MVP for [Fall 2026 FutureEval](https://www.metaculus.com/tournament/fall-futureeval-2026/), based on the official Metaculus template (upstream commit `6dab04c`). Registered bot: [eternalforecaster-bot](https://www.metaculus.com/accounts/profile/308620/) (ID `308620`). The owner reports the participation form is complete.
 
 ## Activation
 
@@ -8,9 +8,9 @@ MVP for [Fall 2026 FutureEval](https://www.metaculus.com/tournament/fall-futuree
 2. Add `METACULUS_TOKEN` under this repository's **Settings → Secrets and variables → Actions**. Use the bot token, not the owner's personal token.
 3. Obtain sponsored model/search access using the current [resources page](https://www.metaculus.com/notebooks/38928/ai-benchmark-resources/). Configure the awarded provider secrets before running forecasts. The upstream library can also use the Metaculus proxy, subject to account access.
 4. Run **Test Bot** for a dry run against the bot testing area. This uses model credits but does not publish forecasts. Inspect the outputs before activation.
-5. Set the repository variable `BOT_ENABLED=true`, enable Actions if required, and run **eternalforecaster — Fall 2026**. The workflow checks for new questions every 20 minutes and skips previously forecasted questions. GitHub schedules can be delayed.
+5. Merge the setup PR into the default branch so GitHub can run its schedule. Set the repository variable `BOT_ENABLED=true`, enable Actions if required, and run **eternalforecaster — Fall 2026 and MiniBench**. The workflow checks for new questions every 20 minutes and skips previously forecasted questions. GitHub schedules can be delayed.
 
-Only the Fall 2026 tournament is targeted by the scheduled runner. MiniBench is not entered automatically. Cup and test workflows are manual and dry-run only. Set `BOT_ENABLED=false` to stop scheduled forecasting.
+The scheduled runner targets Fall 2026 and the current MiniBench (`minibench`) in separate jobs every 20 minutes. A failure in one does not cancel the other. Both skip previously forecasted questions. Cup and test workflows are manual and dry-run only. Set `BOT_ENABLED=false` to stop scheduled forecasting.
 
 ## Local commands
 
@@ -21,13 +21,14 @@ Copy `.env.template` to `.env` and replace the placeholders with actual credenti
 poetry run python main.py --mode test_questions  # paid inference, no publication
 poetry run python main.py --mode tournament     # Fall 2026 dry run
 poetry run python main.py --mode tournament --publish
+poetry run python main.py --mode minibench --publish
 ```
 
 Reports are saved to the ignored `reports/` directory. Forecast failures cause a nonzero exit status so automation does not report them as successful. No credentials are committed.
 
 ## Current status
 
-Prepared for registration; no Metaculus bot account, API credentials, live inference, or submitted forecasts have been verified. Scheduled publication remains gated by `BOT_ENABLED` until credentials and an end-to-end dry run are ready.
+Bot registration is verified, and the owner reports the participation form is complete. Repository API secrets are still absent; live inference and submitted forecasts have not been verified. Scheduled publication remains gated by `BOT_ENABLED` until credentials and an end-to-end dry run are ready.
 
 ---
 

@@ -1,4 +1,4 @@
-name: eternalforecaster — Fall 2026
+name: eternalforecaster — Fall 2026 and MiniBench
 
 permissions:
   contents: read
@@ -18,6 +18,10 @@ concurrency:
 jobs:
   forecast_job:
     if: vars.BOT_ENABLED == 'true'
+    strategy:
+      fail-fast: false
+      matrix:
+        mode: [tournament, minibench]
     timeout-minutes: 45
     runs-on: ubuntu-latest # determines the machine that will run the job - keep as is
     steps: # sets up the steps that will be run in order
@@ -44,7 +48,7 @@ jobs:
         run: poetry install --no-interaction --no-root
       - name: Run bot
         run: |
-          poetry run python main.py --mode tournament --publish
+          poetry run python main.py --mode ${{ matrix.mode }} --publish
         # this reads the environment variables from the github repository.
         # Store under Settings --> Secrets and variables --> Actions
         env:
@@ -60,7 +64,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: forecast-reports
+          name: forecast-reports-${{ matrix.mode }}
           path: reports/
           if-no-files-found: ignore
           retention-days: 30

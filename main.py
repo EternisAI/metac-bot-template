@@ -652,18 +652,18 @@ if __name__ == "__main__":
         format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     )
 
-    parser = argparse.ArgumentParser(description="Run eternalforecaster for Fall 2026 FutureEval")
+    parser = argparse.ArgumentParser(description="Run eternalforecaster-bot for Fall 2026 FutureEval and MiniBench")
     parser.add_argument(
         "--mode",
         type=str,
-        choices=["tournament", "metaculus_cup", "test_questions"],
+        choices=["tournament", "minibench", "metaculus_cup", "test_questions"],
         default="tournament",
         help="What to forecast on (default: tournament)",
     )
     parser.add_argument("--publish", action="store_true",
                         help="Submit forecasts to Metaculus (default: dry run)")
     args = parser.parse_args()
-    run_mode: Literal["tournament", "metaculus_cup", "test_questions"] = args.mode
+    run_mode: Literal["tournament", "minibench", "metaculus_cup", "test_questions"] = args.mode
 
     check_environment(strict=True)
     publish_to_metaculus = args.publish
@@ -698,6 +698,7 @@ if __name__ == "__main__":
     # whenever those rotate seasons.
     TOURNAMENT_URLS = {
         "tournament": "https://www.metaculus.com/tournament/fall-futureeval-2026/",
+        "minibench": "https://www.metaculus.com/tournament/minibench/",
         "metaculus_cup": "https://www.metaculus.com/tournament/metaculus-cup-summer-2025/",
         "test_questions": "https://www.metaculus.com/tournament/bot-testing-area/",
     }
@@ -706,10 +707,11 @@ if __name__ == "__main__":
     # exceptions, since return_exceptions=True) which then flows into the
     # summary printers below.
     client = MetaculusClient()
-    if run_mode == "tournament":
+    if run_mode in ("tournament", "minibench"):
+        tournament_id = "minibench" if run_mode == "minibench" else "fall-futureeval-2026"
         forecast_reports = asyncio.run(
             template_bot.forecast_on_tournament(
-                "fall-futureeval-2026", return_exceptions=True
+                tournament_id, return_exceptions=True
             )
         )
     elif run_mode == "metaculus_cup":
