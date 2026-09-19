@@ -1,4 +1,7 @@
-name: Forecast on new AI tournament questions
+name: eternalforecaster — Fall 2026
+
+permissions:
+  contents: read
 
 on:
   workflow_dispatch:
@@ -14,6 +17,8 @@ concurrency:
 # Daily job to run the simple forecast bot
 jobs:
   forecast_job:
+    if: vars.BOT_ENABLED == 'true'
+    timeout-minutes: 45
     runs-on: ubuntu-latest # determines the machine that will run the job - keep as is
     steps: # sets up the steps that will be run in order
       # setup repository with all necessary dependencies - keep as is
@@ -39,7 +44,7 @@ jobs:
         run: poetry install --no-interaction --no-root
       - name: Run bot
         run: |
-          poetry run python main.py
+          poetry run python main.py --mode tournament --publish
         # this reads the environment variables from the github repository.
         # Store under Settings --> Secrets and variables --> Actions
         env:
@@ -51,3 +56,11 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           ASKNEWS_CLIENT_ID: ${{ secrets.ASKNEWS_CLIENT_ID }}
           ASKNEWS_SECRET: ${{ secrets.ASKNEWS_SECRET }}
+      - name: Save forecast reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: forecast-reports
+          path: reports/
+          if-no-files-found: ignore
+          retention-days: 30

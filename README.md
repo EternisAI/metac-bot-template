@@ -1,3 +1,36 @@
+# eternalforecaster
+
+MVP for [Fall 2026 FutureEval](https://www.metaculus.com/tournament/fall-futureeval-2026/), based on the official Metaculus template (upstream commit `6dab04c`). The requested Metaculus username is `eternalforecaster`; account creation and availability are not yet verified.
+
+## Activation
+
+1. Sign in at https://www.metaculus.com/futureeval/participate/, create the bot in account settings, and copy its bot access token.
+2. Add `METACULUS_TOKEN` under this repository's **Settings → Secrets and variables → Actions**. Use the bot token, not the owner's personal token.
+3. Obtain sponsored model/search access using the current [resources page](https://www.metaculus.com/notebooks/38928/ai-benchmark-resources/). Configure the awarded provider secrets before running forecasts. The upstream library can also use the Metaculus proxy, subject to account access.
+4. Run **Test Bot** for a dry run against the bot testing area. This uses model credits but does not publish forecasts. Inspect the outputs before activation.
+5. Set the repository variable `BOT_ENABLED=true`, enable Actions if required, and run **eternalforecaster — Fall 2026**. The workflow checks for new questions every 20 minutes and skips previously forecasted questions. GitHub schedules can be delayed.
+
+Only the Fall 2026 tournament is targeted by the scheduled runner. MiniBench is not entered automatically. Cup and test workflows are manual and dry-run only. Set `BOT_ENABLED=false` to stop scheduled forecasting.
+
+## Local commands
+
+Install Python 3.11+ and Poetry, then run `poetry install --no-root`.
+Copy `.env.template` to `.env` and replace the placeholders with actual credentials; leave unused provider variables unset.
+
+```sh
+poetry run python main.py --mode test_questions  # paid inference, no publication
+poetry run python main.py --mode tournament     # Fall 2026 dry run
+poetry run python main.py --mode tournament --publish
+```
+
+Reports are saved to the ignored `reports/` directory. Forecast failures cause a nonzero exit status so automation does not report them as successful. No credentials are committed.
+
+## Current status
+
+Prepared for registration; no Metaculus bot account, API credentials, live inference, or submitted forecasts have been verified. Scheduled publication remains gated by `BOT_ENABLED` until credentials and an end-to-end dry run are ready.
+
+---
+
 # Simple Metaculus forecasting bot
 This repository contains a simple bot meant to get you started with creating your own bot for the AI Forecasting Tournament. Go to https://www.metaculus.com/futureeval/participate/ for more info and tournament rules (and then go to the  "Getting Started" section of our [resources](https://www.metaculus.com/notebooks/38928/ai-benchmark-resources/#want-to-join-the-ai-forecasting-benchmark) page).
 
