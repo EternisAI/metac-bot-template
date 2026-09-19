@@ -12,6 +12,10 @@ MVP for [Fall 2026 FutureEval](https://www.metaculus.com/tournament/fall-futuree
 
 The scheduled runner targets Fall 2026 and the current MiniBench (`minibench`) in separate jobs every 20 minutes. A failure in one does not cancel the other. Both skip previously forecasted questions. Cup and test workflows are manual and dry-run only. Set `BOT_ENABLED=false` to stop scheduled forecasting.
 
+## Local flow tests
+
+Run `poetry run python -m unittest discover -s tests -v` after installing dependencies. These offline tests use the real bot and SDK with synthetic questions, simulated inference, and captured submissions. No credits or live forecasts are used. See [test coverage and live verification](tests/README.md).
+
 ## Local commands
 
 Install Python 3.11+ and Poetry, then run `poetry install --no-root`.

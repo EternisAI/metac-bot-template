@@ -1,0 +1,76 @@
+[
+  {
+    "question_type": "binary",
+    "question_text": "Synthetic offline binary question 101",
+    "id_of_question": 101,
+    "id_of_post": 1101,
+    "page_url": "https://www.metaculus.com/questions/1101/",
+    "state": "open",
+    "already_forecasted": false,
+    "resolution_criteria": "Synthetic fixture only; never submit.",
+    "background_info": "Offline competition flow test.",
+    "fine_print": "No real-world outcome.",
+    "tournament_slugs": [
+      "minibench"
+    ]
+  },
+  {
+    "question_type": "multiple_choice",
+    "question_text": "Synthetic offline multiple_choice question 102",
+    "id_of_question": 102,
+    "id_of_post": 1102,
+    "page_url": "https://www.metaculus.com/questions/1102/",
+    "state": "open",
+    "already_forecasted": false,
+    "resolution_criteria": "Synthetic fixture only; never submit.",
+    "background_info": "Offline competition flow test.",
+    "fine_print": "No real-world outcome.",
+    "tournament_slugs": [
+      "minibench"
+    ],
+    "options": [
+      "A",
+      "B"
+    ]
+  },
+  {
+    "question_type": "numeric",
+    "question_text": "Synthetic offline numeric question 103",
+    "id_of_question": 103,
+    "id_of_post": 1103,
+    "page_url": "https://www.metaculus.com/questions/1103/",
+    "state": "open",
+    "already_forecasted": false,
+    "resolution_criteria": "Synthetic fixture only; never submit.",
+    "background_info": "Offline competition flow test.",
+    "fine_print": "No real-world outcome.",
+    "tournament_slugs": [
+      "minibench"
+    ],
+    "lower_bound": 0,
+    "upper_bound": 100,
+    "open_lower_bound": false,
+    "open_upper_bound": false,
+    "cdf_size": 201
+  },
+  {
+    "question_type": "numeric",
+    "question_text": "Synthetic offline numeric question 104",
+    "id_of_question": 104,
+    "id_of_post": 1104,
+    "page_url": "https://www.metaculus.com/questions/1104/",
+    "state": "open",
+    "already_forecasted": false,
+    "resolution_criteria": "Synthetic fixture only; never submit.",
+    "background_info": "Offline competition flow test.",
+    "fine_print": "No real-world outcome.",
+    "tournament_slugs": [
+      "minibench"
+    ],
+    "lower_bound": 0,
+    "upper_bound": 100,
+    "open_lower_bound": false,
+    "open_upper_bound": false,
+    "cdf_size": 11
+  }
+]
